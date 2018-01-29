@@ -1,6 +1,10 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 
+import firebase from 'firebase/app'
+import 'firebase/database'
+
+import { DB_CONFIG } from './db_config'
 import Card from './Card'
 import DrawButton from './DrawButton'
 
@@ -8,6 +12,9 @@ class App extends React.Component {
 
 constructor(props) {
 super(props)
+
+    this.app = firebase.initializeApp(DB_CONFIG)
+    
     this.state = {
         cards: [
             {id: 1, eng: "Monday", meme: "You look great, fact!"},
