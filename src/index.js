@@ -5,6 +5,8 @@ import firebase from 'firebase/app'
 import 'firebase/database'
 
 import { DB_CONFIG } from './db_config'
+// import data from './data.json'
+
 import Card from './Card'
 import DrawButton from './DrawButton'
 
@@ -14,15 +16,10 @@ constructor(props) {
 super(props)
 
     this.app = firebase.initializeApp(DB_CONFIG)
-    
+    this.database = this.app.database().ref().child('cards')
+
     this.state = {
-        cards: [
-            {id: 1, eng: "Monday", meme: "You look great, fact!"},
-            {id: 2, eng: "Tuesday", meme: "You got this, go get um champ!"},
-            {id: 3, eng: "Wednesday", meme: "Make lemonade. True Story"},
-            {id: 4, eng: "Thursday", meme: "Health is wealth"},
-            {id: 5, eng: "Friday", meme: "Be positive and attract positive people"}
-        ],
+        cards: [],
         currentCard: {}    
     }
 }
@@ -30,10 +27,17 @@ super(props)
 componentWillMount(){
     const currentCards = this.state.cards
 
+    this.database.on('child_added', snap => {
+        currentCards.push({
+            id: snap.key,
+            meme: snap.val().meme,
+        })
+
     this.setState({
         cards: currentCards,
         currentCard: this.getRandomCard(currentCards)
     })
+  })
 }
 
 getRandomCard(currentCards){
@@ -53,13 +57,12 @@ updateCard = ()=>{
         return (
             <div>
 
-               <div className="cardRow">
+               <div>
                    <Card 
-                        eng={this.state.currentCard.eng} 
-                        meme={this.state.currentCard.meme}/>
+                        meme={this.state.currentCard.meme} />
                  </div>
 
-                 <div className="buttonRow">
+                 <div>
                     <DrawButton drawCard={this.updateCard} />
                  </div>  
                    

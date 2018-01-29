@@ -10,8 +10,8 @@ render(props) {
 
 return (
 
-    <div className="buttonWrapper">
-        <div className="btn" onClick={this.drawCard}>Draw Card</div>
+    <div>
+        <div className="btn" onClick={this.drawCard}>Press for happiness</div>
     </div>
 )
 }

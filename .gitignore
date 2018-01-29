@@ -1,5 +1,6 @@
 # database config
 src/db_config.js
+src/data.json
 
 # dependencies
 /node_modules
