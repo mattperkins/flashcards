@@ -1,18 +1,18 @@
 import React from 'react'
  
-const Card = () => {
+const Card = ({eng, meme}) => {
 return (
-<div card-wrapper>
+<div className="card-wrapper">
     <div className="card">
         <div className="front">
             <div className="eng">
-                Day
+                {eng}
             </div>
         </div>
 
         <div className="back">
             <div className="meme">
-                Meme
+                {meme}
             </div>
         </div>
     </div>
